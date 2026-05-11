@@ -683,10 +683,11 @@ async def signin(
 async def signup_handler(
     request: Request,
     email: str,
-    password: str,
+    password: Optional[str],
     name: str,
     profile_image_url: str = '/user.png',
     *,
+    phone: Optional[str] = None,
     db: AsyncSession,
 ) -> UserModel:
     """
@@ -695,10 +696,13 @@ async def signup_handler(
 
     Returns the newly created UserModel.
     Raises HTTPException on failure.
+
+    For phone-only signup pass password=None; a random unguessable password is
+    set so the password-login path is unreachable until the user explicitly
+    sets one. Pass `phone` to populate the user.phone column.
     """
-    # Insert with default role first to avoid TOCTOU race on first signup.
-    # If has_users() is checked before insert, concurrent requests during
-    # first-user registration can all see an empty table and each get admin.
+    if not password:
+        password = uuid.uuid4().hex + uuid.uuid4().hex
     hashed = get_password_hash(password)
 
     user = await Auths.insert_new_auth(
@@ -711,6 +715,10 @@ async def signup_handler(
     )
     if not user:
         raise HTTPException(500, detail=ERROR_MESSAGES.CREATE_USER_ERROR)
+
+    if phone:
+        await Users.update_user_by_id(user.id, {'phone': phone}, db=db)
+        user = await Users.get_user_by_id(user.id, db=db)
 
     # Atomically check if this is the only user *after* the insert.
     # Only the single user present at this point should become admin.

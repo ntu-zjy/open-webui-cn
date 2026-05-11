@@ -64,6 +64,7 @@ from open_webui.utils.session_pool import (
 from open_webui.utils.auth import get_admin_user, get_verified_user
 from open_webui.utils.headers import include_user_info_headers, get_custom_headers
 from open_webui.utils.anthropic import is_anthropic_url, get_anthropic_models
+from open_webui.utils.billing.quota import check_quota
 
 log = logging.getLogger(__name__)
 
@@ -1094,6 +1095,8 @@ async def generate_chat_completion(
     bypass_filter = getattr(request.state, 'bypass_filter', False)
     if BYPASS_MODEL_ACCESS_CONTROL:
         bypass_filter = True
+
+    await check_quota(user, form_data.get('model') or '')
 
     idx = 0
 

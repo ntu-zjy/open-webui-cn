@@ -43,6 +43,7 @@ class User(Base):
 
     id = Column(String, primary_key=True, unique=True)
     email = Column(String)
+    phone = Column(String(32), nullable=True)
     username = Column(String(50), nullable=True)
     role = Column(String)
 
@@ -76,6 +77,7 @@ class UserModel(BaseModel):
     id: str
 
     email: str
+    phone: Optional[str] = None
     username: Optional[str] = None
     role: str = 'pending'
 
@@ -304,6 +306,15 @@ class UsersTable:
                 result = await db.execute(
                     select(User).join(ApiKey, User.id == ApiKey.user_id).filter(ApiKey.key == api_key)
                 )
+                user = result.scalars().first()
+                return UserModel.model_validate(user) if user else None
+        except Exception:
+            return None
+
+    async def get_user_by_phone(self, phone: str, db: Optional[AsyncSession] = None) -> Optional[UserModel]:
+        try:
+            async with get_async_db_context(db) as db:
+                result = await db.execute(select(User).filter(User.phone == phone))
                 user = result.scalars().first()
                 return UserModel.model_validate(user) if user else None
         except Exception:

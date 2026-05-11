@@ -62,6 +62,7 @@ from open_webui.utils.payload import (
     apply_system_prompt_to_body,
 )
 from open_webui.utils.auth import get_admin_user, get_verified_user
+from open_webui.utils.billing.quota import check_quota
 from open_webui.config import (
     UPLOAD_DIR,
 )
@@ -1081,6 +1082,8 @@ async def generate_chat_completion(
 ):
     if not request.app.state.config.ENABLE_OLLAMA_API:
         raise HTTPException(status_code=503, detail=ERROR_MESSAGES.OLLAMA_API_DISABLED)
+
+    await check_quota(user, form_data.get('model') or '')
 
     # NOTE: We intentionally do NOT use Depends(get_async_session) here.
     # Database operations (get_model_by_id, AccessGrants.has_access) manage their own short-lived sessions.

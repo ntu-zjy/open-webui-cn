@@ -23,6 +23,7 @@ export function safeImageUrl(url: string): string {
 	if (
 		url.startsWith(WEBUI_BASE_URL) ||
 		url.startsWith('https://www.gravatar.com/avatar/') ||
+		url.startsWith('https://cravatar.cn/avatar/') ||
 		url.startsWith('data:') ||
 		url.startsWith('/')
 	) {

@@ -25,13 +25,14 @@
 	import Spinner from '$lib/components/common/Spinner.svelte';
 	import OnBoarding from '$lib/components/OnBoarding.svelte';
 	import SensitiveInput from '$lib/components/common/SensitiveInput.svelte';
+	import SmsSignin from '$lib/components/auth/SmsSignin.svelte';
 	import { redirect } from '@sveltejs/kit';
 
 	const i18n = getContext('i18n');
 
 	let loaded = false;
 
-	let mode = $config?.features.enable_ldap ? 'ldap' : 'signin';
+	let mode = $config?.features.enable_ldap ? 'ldap' : 'sms_signin';
 
 	let form = null;
 
@@ -278,6 +279,43 @@
 								</div>
 
 								{#if $config?.features.enable_login_form || $config?.features.enable_ldap || form}
+									<div class="mt-4 flex gap-1 text-xs justify-center">
+										<button
+											type="button"
+											class="px-3 py-1 rounded-full {mode === 'sms_signin'
+												? 'bg-gray-200 dark:bg-gray-700 font-medium'
+												: 'text-gray-500'}"
+											on:click={() => (mode = 'sms_signin')}
+										>
+											手机号登录
+										</button>
+										<button
+											type="button"
+											class="px-3 py-1 rounded-full {mode === 'signin' || mode === 'signup'
+												? 'bg-gray-200 dark:bg-gray-700 font-medium'
+												: 'text-gray-500'}"
+											on:click={() => (mode = 'signin')}
+										>
+											邮箱登录
+										</button>
+										{#if $config?.features.enable_ldap}
+											<button
+												type="button"
+												class="px-3 py-1 rounded-full {mode === 'ldap'
+													? 'bg-gray-200 dark:bg-gray-700 font-medium'
+													: 'text-gray-500'}"
+												on:click={() => (mode = 'ldap')}
+											>
+												LDAP
+											</button>
+										{/if}
+									</div>
+
+									{#if mode === 'sms_signin'}
+										<div class="mt-4">
+											<SmsSignin on:success={(e) => setSessionUser(e.detail)} />
+										</div>
+									{:else}
 									<div class="flex flex-col mt-4">
 										{#if mode === 'signup'}
 											<div class="mb-2">
@@ -368,7 +406,9 @@
 											</div>
 										{/if}
 									</div>
+									{/if}
 								{/if}
+								{#if mode !== 'sms_signin'}
 								<div class="mt-5">
 									{#if $config?.features.enable_login_form || $config?.features.enable_ldap || form}
 										{#if mode === 'ldap'}
@@ -414,6 +454,7 @@
 										{/if}
 									{/if}
 								</div>
+								{/if}
 							</form>
 
 							{#if Object.keys($config?.oauth?.providers ?? {}).length > 0}
