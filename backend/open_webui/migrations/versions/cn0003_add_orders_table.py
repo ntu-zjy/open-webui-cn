@@ -1,7 +1,7 @@
 """Add order table for payments
 
-Revision ID: c3d4e5f6a7b8
-Revises: b2c3d4e5f6a7
+Revision ID: cn0003
+Revises: cn0002
 Create Date: 2026-05-11 13:00:00.000000
 """
 
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 from open_webui.migrations.util import get_existing_tables
 
-revision: str = 'c3d4e5f6a7b8'
-down_revision: Union[str, None] = 'b2c3d4e5f6a7'
+revision: str = 'cn0003'
+down_revision: Union[str, None] = 'cn0002'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 

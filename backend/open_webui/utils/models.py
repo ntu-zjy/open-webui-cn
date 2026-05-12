@@ -375,6 +375,9 @@ async def get_all_models(request, refresh: bool = False, user: UserModel = None)
 
     log.debug(f'get_all_models() returned {len(models)} models')
 
+    from open_webui.utils.billing.model_catalog import merge_catalog_into_models
+    models = merge_catalog_into_models(models)
+
     models_dict = {model['id']: model for model in models}
     if isinstance(request.app.state.MODELS, RedisDict):
         request.app.state.MODELS.set(models_dict)

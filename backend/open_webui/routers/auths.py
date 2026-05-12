@@ -1,5 +1,6 @@
 import asyncio
 import re
+import secrets
 import uuid
 import time
 import datetime
@@ -704,6 +705,9 @@ async def signup_handler(
     if not password:
         password = uuid.uuid4().hex + uuid.uuid4().hex
     hashed = get_password_hash(password)
+
+    if profile_image_url in ('/user.png', '', None):
+        profile_image_url = f'/static/avatars/{secrets.randbelow(8) + 1}.svg'
 
     user = await Auths.insert_new_auth(
         email=email.lower(),

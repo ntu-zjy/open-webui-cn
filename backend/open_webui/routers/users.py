@@ -480,6 +480,11 @@ async def get_user_profile_image_by_id(user_id: str, user=Depends(get_verified_u
     user = await Users.get_user_by_id(user_id)
     if user:
         if user.profile_image_url:
+            if user.profile_image_url.startswith('/static/'):
+                return Response(
+                    status_code=status.HTTP_302_FOUND,
+                    headers={'Location': user.profile_image_url},
+                )
             if user.profile_image_url.startswith('http'):
                 if ENABLE_PROFILE_IMAGE_URL_FORWARDING:
                     return Response(

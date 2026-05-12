@@ -1,7 +1,7 @@
 """Add phone column to user and verification_code table
 
-Revision ID: a1b2c3d4e5f6
-Revises: f1e2d3c4b5a6
+Revision ID: cn0001
+Revises: a0b1c2d3e4f5
 Create Date: 2026-05-11 12:00:00.000000
 """
 
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 from open_webui.migrations.util import get_existing_tables
 
-revision: str = 'a1b2c3d4e5f6'
-down_revision: Union[str, None] = 'f1e2d3c4b5a6'
+revision: str = 'cn0001'
+down_revision: Union[str, None] = 'a0b1c2d3e4f5'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 

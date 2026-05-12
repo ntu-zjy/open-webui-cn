@@ -549,6 +549,7 @@ from open_webui.utils.models import (
     check_model_access,
     get_filtered_models,
 )
+from open_webui.utils.billing.model_catalog import apply_catalog_filter
 from open_webui.utils.chat import (
     generate_chat_completion as chat_completion_handler,
     chat_completed as chat_completed_handler,
@@ -1530,6 +1531,7 @@ async def get_models(request: Request, refresh: bool = False, user=Depends(get_v
         )
 
     models = await get_filtered_models(models, user)
+    models = await apply_catalog_filter(models, user)
 
     log.debug(
         f'/api/models returned filtered models accessible to the user: {json.dumps([model.get("id") for model in models])}'

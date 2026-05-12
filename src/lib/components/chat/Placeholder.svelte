@@ -26,6 +26,7 @@
 	import Suggestions from './Suggestions.svelte';
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
 	import EyeSlash from '$lib/components/icons/EyeSlash.svelte';
+	import VendorIcon from '$lib/components/icons/VendorIcon.svelte';
 	import MessageInput from './MessageInput.svelte';
 	import FolderPlaceholder from './Placeholder/FolderPlaceholder.svelte';
 	import FolderTitle from './Placeholder/FolderTitle.svelte';
@@ -125,14 +126,9 @@
 											selectedModelIdx = modelIdx;
 										}}
 									>
-										<img
-											src={`${WEBUI_API_BASE_URL}/models/model/profile/image?id=${model?.id}&lang=${$i18n.language}`}
-											class=" size-9 @sm:size-10 rounded-full border-[1px] border-gray-100 dark:border-none"
-											aria-hidden="true"
-											draggable="false"
-											on:error={(e) => {
-												e.currentTarget.src = '/favicon.png';
-											}}
+										<VendorIcon
+											{model}
+											className="size-9 @sm:size-10 rounded-full border-[1px] border-gray-100 dark:border-none"
 										/>
 									</button>
 								</Tooltip>

@@ -1281,31 +1281,28 @@ except Exception as e:
 if default_prompt_suggestions == []:
     default_prompt_suggestions = [
         {
-            'title': ['Help me study', 'vocabulary for a college entrance exam'],
-            'content': "Help me study vocabulary: write a sentence for me to fill in the blank, and I'll try to pick the correct option.",
+            'title': ['帮我润色一段文字', '让它更专业'],
+            'content': '帮我把这段文字润色得更专业一些（请贴上你的文字）。',
         },
         {
-            'title': ['Give me ideas', "for what to do with my kids' art"],
-            'content': "What are 5 creative things I could do with my kids' art? I don't want to throw them away, but it's also so much clutter.",
+            'title': ['写一份周报', '本周做了 3 件事'],
+            'content': '帮我写一份本周工作周报,主题是：（请填写本周完成的 2-3 件事）。',
         },
         {
-            'title': ['Tell me a fun fact', 'about the Roman Empire'],
-            'content': 'Tell me a random fun fact about the Roman Empire',
+            'title': ['翻译一段中文为英文', '保持语气自然'],
+            'content': '把下面这段中文翻译成自然流畅的英文（请贴上原文）。',
         },
         {
-            'title': ['Show me a code snippet', "of a website's sticky header"],
-            'content': "Show me a code snippet of a website's sticky header in CSS and JavaScript.",
+            'title': ['解释一段代码', '逐行讲清楚思路'],
+            'content': '请逐行解释下面这段代码的作用（请贴上代码）。',
         },
         {
-            'title': [
-                'Explain options trading',
-                "if I'm familiar with buying and selling stocks",
-            ],
-            'content': "Explain options trading in simple terms if I'm familiar with buying and selling stocks.",
+            'title': ['推荐一本书', '关于产品经理入门'],
+            'content': '推荐 3 本适合产品经理入门的书,并简单说明每本的核心收获。',
         },
         {
-            'title': ['Overcome procrastination', 'give me tips'],
-            'content': 'Could you start by asking me about instances when I procrastinate the most and then give me some suggestions to overcome it?',
+            'title': ['今晚吃什么', '给我 3 个家常菜方案'],
+            'content': '我想做家常菜,推荐 3 个 30 分钟内能做完的方案,附带食材清单。',
         },
     ]
 

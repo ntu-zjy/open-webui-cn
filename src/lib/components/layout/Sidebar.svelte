@@ -1009,18 +1009,13 @@
 					draggable="false"
 					on:click={newChatHandler}
 				>
-					<img
-						crossorigin="anonymous"
-						src="{WEBUI_BASE_URL}/static/favicon.png"
-						class="sidebar-new-chat-icon size-6 rounded-full"
-						alt=""
-					/>
 				</a>
 
-				<a href="/" class="flex flex-1 px-0.5" on:click={newChatHandler}>
+				<a href="/" class="flex flex-1 px-0.5 -ml-1" on:click={newChatHandler}>
 					<div
 						id="sidebar-webui-name"
-						class=" self-center font-medium text-gray-850 dark:text-white font-primary"
+						class=" self-center font-semibold text-lg tracking-wide text-gray-850 dark:text-white font-primary"
+						style="font-family: STHeiti, 'PingFang SC', 'Hiragino Sans GB', system-ui, sans-serif;"
 					>
 						{$WEBUI_NAME}
 					</div>

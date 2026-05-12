@@ -16,6 +16,7 @@ __pycache__/
 *$py.class
 .nvmrc
 CLAUDE.md
+docs/KEYS.md
 # C extensions
 *.so
 

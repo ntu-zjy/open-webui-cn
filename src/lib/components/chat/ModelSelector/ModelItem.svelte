@@ -16,6 +16,7 @@
 	import { toast } from 'svelte-sonner';
 	import Tag from '$lib/components/icons/Tag.svelte';
 	import Label from '$lib/components/icons/Label.svelte';
+	import VendorIcon from '$lib/components/icons/VendorIcon.svelte';
 
 	const i18n = getContext('i18n');
 
@@ -78,15 +79,7 @@
 		<div class="flex items-center gap-2">
 			<div class="flex items-center min-w-fit">
 				<Tooltip content={$user?.role === 'admin' ? (item?.value ?? '') : ''} placement="top-start">
-					<img
-						src={`${WEBUI_API_BASE_URL}/models/model/profile/image?id=${item.model.id}&lang=${$i18n.language}`}
-						alt={$i18n.t('{{modelName}} profile image', { modelName: item.label })}
-						class="rounded-full size-5 flex items-center"
-						loading="lazy"
-						on:error={(e) => {
-							e.currentTarget.src = '/favicon.png';
-						}}
-					/>
+					<VendorIcon model={item.model} className="size-5 flex items-center" />
 				</Tooltip>
 			</div>
 

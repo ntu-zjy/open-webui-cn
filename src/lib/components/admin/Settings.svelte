@@ -246,8 +246,11 @@
 		}
 	];
 
+	const HIDDEN_TABS = new Set(['connections', 'models', 'pipelines']);
+
 	const setFilteredSettings = () => {
 		filteredSettings = allSettings.filter((tab) => {
+			if (HIDDEN_TABS.has(tab.id)) return false;
 			const searchTerm = search.toLowerCase().trim();
 			return (
 				search === '' ||

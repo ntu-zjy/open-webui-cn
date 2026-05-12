@@ -599,6 +599,10 @@ async def get_all_models(request: Request, user: UserModel) -> dict[str, list]:
     # Fetch loaded state for providers that support it (e.g. llama.cpp /slots)
     await get_openai_loaded_models(request, models, api_base_urls)
 
+    from open_webui.utils.billing.model_catalog import merge_catalog_into_models
+    merged = merge_catalog_into_models(list(models.values()))
+    models = {m['id']: m for m in merged}
+
     request.app.state.OPENAI_MODELS = models
     return {'data': list(models.values())}
 
